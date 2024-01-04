@@ -1,2 +1,3 @@
 # drone-terraform-compliance
-drone-terraform-compliance
+
+Plugin wrapper for https://terraform-compliance.com
