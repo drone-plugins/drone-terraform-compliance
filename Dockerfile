@@ -1,9 +1,6 @@
 # Use the latest Ubuntu base image
 FROM ubuntu:latest
 
-# Set environment variable to avoid issues with Git Python
-ENV GIT_PYTHON_REFRESH=quiet
-
 # Update package lists and install necessary dependencies
 RUN apt-get update && \
     apt-get install -y \
@@ -20,9 +17,6 @@ ARG TERRAFORM_VERSION=1.1.0
 RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip && \
     unzip terraform.zip -d /usr/local/bin && \
     rm terraform.zip
-
-# Display Terraform version
-RUN terraform --version
 
 # Install Terraform Compliance using pip
 RUN pip3 install terraform-compliance
