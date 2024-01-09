@@ -1,14 +1,14 @@
-# Use the latest Ubuntu base image
-FROM ubuntu:latest
+# Use the latest Python Alpine image as the base
+FROM python:alpine
 
-# Update package lists and install necessary dependencies
-RUN apt-get update && \
-    apt-get install -y \
+# Install necessary dependencies
+RUN apk --no-cache add \
     curl \
     unzip \
-    python3 \
-    python3-pip \
-    git
+    git \
+    gcc \
+    musl-dev \
+    bash
 
 # Define Terraform version using an argument
 ARG TERRAFORM_VERSION=1.1.0
@@ -19,7 +19,10 @@ RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/ter
     rm terraform.zip
 
 # Install Terraform Compliance using pip
-RUN pip3 install terraform-compliance
+RUN pip install --no-cache-dir terraform-compliance
+
+# Clean up unnecessary packages and cache
+RUN apk del gcc musl-dev
 
 # Set the working directory to /app
 WORKDIR /app
