@@ -6,8 +6,6 @@ RUN apk --no-cache add \
     curl \
     unzip \
     git \
-    gcc \
-    musl-dev \
     bash
 
 # Define Terraform version using an argument
@@ -20,9 +18,6 @@ RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/ter
 
 # Install Terraform Compliance using pip
 RUN pip install --no-cache-dir terraform-compliance
-
-# Clean up unnecessary packages and cache
-RUN apk del gcc musl-dev
 
 # Set the working directory to /app
 WORKDIR /app
